@@ -2,3 +2,6 @@
     color:black;
     font-weight: bold;
 }
+.radio:hover{
+    color:grey;
+}
