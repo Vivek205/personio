@@ -20,8 +20,8 @@ const filter = props => {
             placeholder='Enter Keyword to filter' 
             value={props.filter.filterText} 
             onChange={props.filterChanged} />
-            <Button text='Filter' clicked={props.filterClicked}/>
-            <Button text='Clear' clicked={props.filterCleared}/>
+            <Button iconName='fas fa-filter' clicked={props.filterClicked}/>
+            <Button iconName='fas fa-ban' clicked={props.filterCleared}/>
         </div>
     </div>);
 }

@@ -31,7 +31,7 @@ class Layout extends Component {
     //contacting server for details of all the applications
     fetchAppData = () => {
         this.setState({ loader: true });
-        axios.get('http://personio-fe-test.herokuapp.com/api/v1/candidates')
+        axios.get('https://personio-fe-test.herokuapp.com/api/v1/candidates')
             .then(response => {
                 if (response.data.data) {
                     let headings = []

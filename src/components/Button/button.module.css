@@ -22,7 +22,7 @@
 .btn1 {
     /* background: #fcad26; */
     background:lightgray;
-    color: #fff;
+    color: #000;
 }
 .btn1a{
     padding: 6px 10px 4px 10px;
@@ -30,11 +30,13 @@
 .btn1a:hover,
 .btn1a:active {
     /* background: #f29e0d; */
-    background: gray;
+    background: black;
+    color: #fff;
     /* background: #E0C8AD; */
 }
 .btn1a:active {
-    background: gray;
+    background: black;
+    color: #fff;
     /* background: #f29e0d; */
-    top: 2px;
+    top: 1px;
 }

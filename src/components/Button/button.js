@@ -6,7 +6,7 @@ const button = props => {
     return (
         <button 
         className={[css.btn, css.btn1, css.btn1a].join(' ')}
-        onClick={props.clicked}>{props.text}</button>
+        onClick={props.clicked}><i className={props.iconName}></i></button>
     );
 }
 

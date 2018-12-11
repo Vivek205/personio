@@ -1,142 +1,69 @@
-.container {
-    position: absolute;
-    top: 25%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
+.loader {
+  color: black;
+  font-size: 20px;
+  margin: 200px auto;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-animation: load4 1.3s infinite linear;
+  animation: load4 1.3s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+@-webkit-keyframes load4 {
+  0%, 100% {
+    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
   }
-  
-  .dash {
-    margin: 0 15px;
-    width: 35px;
-    height: 15px;
-    border-radius: 8px;
-    background: rgb(10, 10, 10);
-    box-shadow: 0 0 10px 0 #FECDFF;
+  12.5% {
+    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
   }
-  
-  .uno {
-    margin-right: -18px;
-    transform-origin: center left;
-    animation: spin 3s linear infinite;  
+  25% {
+    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
   }
-  
-  .dos {
-    transform-origin: center right;
-    animation: spin2 3s linear infinite;
-    animation-delay: .2s;
+  37.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
   }
-  
-  .tres {
-    transform-origin: center right;
-    animation: spin3 3s linear infinite;
-    animation-delay: .3s;
+  50% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
   }
-  
-  .cuatro {
-    transform-origin: center right;
-    animation: spin4 3s linear infinite;
-    animation-delay: .4s;
+  62.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
   }
-  
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    25% {
-      transform: rotate(360deg);
-    }
-    30% {
-      transform: rotate(370deg);
-    }
-    35% {
-      transform: rotate(360deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+  75% {
+    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
   }
-  
-  @keyframes spin2 {
-    0% {
-      transform: rotate(0deg);
-    }
-    20% {
-      transform: rotate(0deg);
-    }
-    30% {
-      transform: rotate(-180deg);
-    }
-    35% {
-      transform: rotate(-190deg);
-    }
-    40% {
-      transform: rotate(-180deg);
-    }
-    78% {
-      transform: rotate(-180deg);
-    }
-    95% {
-      transform: rotate(-360deg);
-    }
-    98% {
-      transform: rotate(-370deg);
-    }
-    100% {
-      transform: rotate(-360deg);
-    }
+  87.5% {
+    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
   }
-  
-  @keyframes spin3 {
-    0% {
-      transform: rotate(0deg);
-    }
-    27% {
-      transform: rotate(0deg);  
-    }
-    40% {
-      transform: rotate(180deg);
-    }
-    45% {
-      transform: rotate(190deg);
-    }
-    50% {
-      transform: rotate(180deg);
-    }
-    62% {
-      transform: rotate(180deg);
-    }
-    75% {
-      transform: rotate(360deg);
-    }
-    80% {
-      transform: rotate(370deg);
-    }
-    85% {
-      transform: rotate(360deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+}
+
+@keyframes load4 {
+  0%, 100% {
+    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
   }
-  
-  @keyframes spin4 {
-    0% {
-      transform: rotate(0deg);
-    }
-    38% {
-      transform: rotate(0deg);
-    }
-    60% {
-      transform: rotate(-360deg);
-    }
-    65% {
-      transform: rotate(-370deg);
-    }
-    75% {
-      transform: rotate(-360deg);
-    }
-    100% {
-      transform: rotate(-360deg);
-    }
+  12.5% {
+    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
   }
+  25% {
+    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  37.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  50% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  62.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+  }
+  75% {
+    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+  }
+}

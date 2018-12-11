@@ -1,105 +1,109 @@
-.ht{
+.ht {
   clear: both;
-  height:527px;
+  height: 527px;
   overflow-y: scroll;
   margin: 10px auto;
 }
+
 body {
-    font-family: "Open Sans", sans-serif;
-    line-height: 1.25;
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.25;
+}
+
+table {
+  clear: both;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0px auto;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+  word-wrap: break-word;
+}
+
+table th, table td {
+  padding: .625em;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+table th {
+  background-color: #f0f0f0;
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+table th[data-label='sortedAZ']::after {
+  float: right;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 2em;
+  content: "\f106";
+}
+
+table th[data-label='sortedZA']::after {
+  float: right;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 2em;
+  content: "\f107";
+}
+
+.sortable {
+  border: 1px groove black;
+}
+
+@media screen and (max-width: 600px) {
+  .ht {
+    overflow: visible;
   }
-  
   table {
-    clear: both;
-    border: 1px solid #ccc;
-    border-collapse: collapse;
-    margin: 0px auto;
-    padding: 0;
-    width: 100%;
-    table-layout: fixed;
+    border: 0;
+    word-wrap: break-word;
   }
-  
   table caption {
-    font-size: 1.5em;
-    margin: .5em 0 .75em;
+    font-size: 1.3em;
   }
-  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
   table tr {
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: .35em;
-    word-wrap: break-word;
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
   }
-  
-  table th,
   table td {
-    padding: .625em;
-    text-align: center;
-    word-wrap: break-word;
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
   }
-  
-  table th {
-    background-color: #f0f0f0;
-    font-size: .85em;
-    letter-spacing: .1em;
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
     text-transform: uppercase;
   }
-
-  table th[data-label = 'sortedAZ']{
-    background-color: blue;
+  table td:last-child {
+    border-bottom: 0;
   }
-  table th[data-label = 'sortedZA']{
-    background-color: red;
-  }
-  .sortable{
-    border: 1px groove black;
-  }
-  @media screen and (max-width: 600px) {
-    .ht{
-      overflow: visible;
-    }
-    table {
-      border: 0;
-      word-wrap: break-word;
-    }
-  
-    table caption {
-      font-size: 1.3em;
-    }
-    
-    table thead {
-      border: none;
-      clip: rect(0 0 0 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      width: 1px;
-    }
-    
-    table tr {
-      border-bottom: 3px solid #ddd;
-      display: block;
-      margin-bottom: .625em;
-    }
-    
-    table td {
-      border-bottom: 1px solid #ddd;
-      display: block;
-      font-size: .8em;
-      text-align: right;
-      
-    }
-    
-    table td::before {
-      content: attr(data-label);
-      float: left;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    
-    table td:last-child {
-      border-bottom: 0;
-    }
-  }
+}

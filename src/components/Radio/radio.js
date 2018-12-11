@@ -4,13 +4,15 @@ import css from './radio.module.css';
 
 const radio = props => {
     return (
-    <>
-        <input type='radio' name='filter'
-            checked={props.filter.filterSelected == props.option ? true : false}
-            value={props.option}
-            onChange={props.filterChanged} />
-        <label>{props.option}</label>
-    </>)
+        <div className={css.radio}>
+            <input type='radio' name='filter'
+                checked={props.filter.filterSelected == props.option ? true : false}
+                value={props.option}
+                onChange={props.filterChanged} />
+            <label className={props.filter.filterSelected == props.option ? css.activeLabel : ''}>
+                {props.option}
+            </label>
+        </div>)
 }
 
 export default radio;
