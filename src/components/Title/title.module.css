@@ -1,3 +1,7 @@
-.icon{
-    background: url('../../assets/user.png')
+.title {
+    float: left;
+    margin-top: 10px;
+}
+.title i{
+    margin-right: 5px;
 }

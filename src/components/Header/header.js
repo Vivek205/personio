@@ -5,12 +5,17 @@ import React from 'react';
 import Title from '../Title/title';
 import Filter from '../../containers/Filter/filter';
 
-const header = props =>{
-    return(
-        <div>
-        <Title text='Applications' />
-        <Filter />
-        </div>
+const header = props => {
+    return (
+        <>
+            <Title text='Applications' />
+            <Filter
+                filter={props.filter}
+                filterChanged={props.filterChanged}
+                filterClicked={props.filterClicked}
+                filterCleared={props.filterCleared}
+            />
+        </>
     );
 }
 

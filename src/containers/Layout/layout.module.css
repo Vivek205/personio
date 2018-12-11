@@ -1,0 +1,14 @@
+.layout {
+    width: 97vw;
+    margin: auto;
+}
+
+.layout p {
+    text-align: center;
+    font-family: "Courier New";
+    font-size: 23px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 23px;
+}

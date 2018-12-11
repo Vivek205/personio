@@ -1,19 +1,23 @@
 const initialState = {
+    masterData:[],
     appData: [],
-    headings:[]
+    headings: []
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'updateMasterData':
+            return {
+                ...state,
+                masterData: action.payload
+            };
         case 'updateAppData':
-        console.log('updateAppData',action.payload);
             return {
                 ...state,
                 appData: action.payload
             };
         case 'updateHeadings':
-        console.log('updateHeadings',action.headings);
-        
+
             return {
                 ...state,
                 headings: action.headings

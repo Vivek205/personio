@@ -1,6 +1,33 @@
-.filter{
-    float:right;
+.filter {
+    float: right;
+    margin-right: -4px;
 }
-.filterOptions{
+
+.filterOptions {
     display: inline-block;
+    margin-right: 5px
+}
+
+.filterOptions .radio {
+    display: inline-block;
+    margin-right: 5px;
+    text-transform: capitalize;
+}
+
+.filter input {
+    margin-right: 5px;
+}
+
+.textInput {
+    border: 0px;
+    border-bottom: 1px solid grey;
+    margin-right: 0px !important;
+}
+
+.textInput:focus {
+    outline: none;
+    border-bottom: 1px solid black;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: all 1.5s;
+    transition: all 1.5s;
 }
