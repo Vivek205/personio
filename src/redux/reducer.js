@@ -1,7 +1,8 @@
 const initialState = {
     masterData:[],
     appData: [],
-    headings: []
+    headings: [],
+    paginatedData:[]
 }
 
 const reducer = (state = initialState, action) => {
@@ -22,6 +23,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 headings: action.headings
             };
+        case 'updatePaginatedData':
+            return{
+                ...state,
+                paginatedData:action.paginatedData
+            }
         default:
             return state;
     }

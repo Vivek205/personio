@@ -5,7 +5,7 @@ import './App.css';
 
 //Components import
 import  Home  from './components/Home/home';
-import Layout from './containers/Layout/layout'
+import Layout from './containers/Layout/layout';
 
 class App extends Component {
   render() {

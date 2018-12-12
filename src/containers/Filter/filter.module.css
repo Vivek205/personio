@@ -20,14 +20,14 @@
 
 .textInput {
     border: 0px;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid lightgrey;
     margin-right: 0px !important;
 }
 
 .textInput:focus {
     outline: none;
     border-bottom: 1px solid black;
-    transition-timing-function: ease-in-out;
-    -webkit-transition: all 1.5s;
-    transition: all 1.5s;
+    transition-timing-function: ease-in;
+    -webkit-transition: all 1s;
+    transition: all 1s;
 }

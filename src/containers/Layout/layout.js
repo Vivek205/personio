@@ -14,11 +14,12 @@ class Layout extends Component {
         loader: false,
         alert: { show: false, msg: '', type: '' },
         filter: {
-            filterBy: ['name', 'status', 'position_applied'],
+            filterBy: ['name', 'status', 'position_applied'],  //available filtering options
             filterText: '',
             filterSelected: ''
         },
         sort: {
+            applicableTo: ['year_of_experience', 'position_applied', 'application_date'], // available sorting options
             sortBy: '',
             order: ''
         }
@@ -28,7 +29,7 @@ class Layout extends Component {
         this.fetchAppData();
     }
 
-    //contacting server for details of all the applications
+    //contacting server API to fetch the details of all applications
     fetchAppData = () => {
         this.setState({ loader: true });
         axios.get('https://personio-fe-test.herokuapp.com/api/v1/candidates')
@@ -38,9 +39,9 @@ class Layout extends Component {
                     for (let i in response.data.data[0]) {
                         headings.push(i);
                     }
-                    this.props.updateMasterData(response.data.data);
-                    this.props.updateAppData(response.data.data);
-                    this.props.updateHeadings(headings);
+                    this.props.updateMasterData(response.data.data); //masterData for backup
+                    this.props.updateAppData(response.data.data); //appData for carrying out our logic
+                    this.props.updateHeadings(headings); //list of headings to diaplay in the table
 
                     //checking for the filter and sort in query parameters
                     let query = this.fetchQueryParams();
@@ -58,7 +59,7 @@ class Layout extends Component {
                                 }
                             }
                         });
-                        //filtering the main data based on the query
+                        //filtering the appData based on the query
                         if (filterSelected != '' && filterText != '') {
                             this.filterApplications(filterSelected, filterText);
                         }
@@ -68,10 +69,12 @@ class Layout extends Component {
                         let sortBy = query.sort.substring(0, query.sort.indexOf(':'));
                         let order = query.sort.substring(query.sort.indexOf(':') + 1);
                         let sortQuery = [sortBy, order];
+                        //sorting the appData based on the query
                         this.sortApplications(null, sortQuery);
                     }
 
                 } else {
+                    //Alert for Err if status is successfull 200
                     this.setState({
                         alert: {
                             show: true,
@@ -85,6 +88,7 @@ class Layout extends Component {
             })
             .catch(err => {
                 console.log(err);
+                //Alert for Err if API server cannot be reached
                 this.setState({
                     loader: false,
                     alert: {
@@ -101,10 +105,11 @@ class Layout extends Component {
         this.setState({ alert: { show: false, msg: '', type: '' } })
     }
 
-    //update filter option
+    //update the filter state object whenever the user changes the filter options(onChange listener)
     changeFilterSelection = (e) => {
         let type = e.target.type;
         let value = e.target.value;
+        //changing filter selection if input type is text
         if (type == 'text') {
             this.setState((prevState) => {
                 return {
@@ -114,7 +119,9 @@ class Layout extends Component {
                     }
                 }
             });
-        } else if (type == 'radio') {
+        }
+        //changing filter selection if input type is radio
+        else if (type == 'radio') {
             this.setState((prevState) => {
                 return {
                     filter: {
@@ -127,7 +134,7 @@ class Layout extends Component {
     }
     //update the url with filter query
     filterHandler = () => {
-        //validation
+        //validation: is any radio selected
         if (this.state.filter.filterSelected == '') {
             this.setState({
                 alert: {
@@ -138,7 +145,8 @@ class Layout extends Component {
             });
             return;
         }
-        if (this.state.filter.filterText == '') {
+        //validation: filter text should not be empty
+        if (this.state.filter.filterText.trim() == '') {
             this.setState({
                 alert: {
                     show: true,
@@ -149,13 +157,13 @@ class Layout extends Component {
             return;
         }
         this.updateQueryParameter();
-        this.filterApplications(this.state.filter.filterSelected, this.state.filter.filterText);
+        this.filterApplications(this.state.filter.filterSelected, this.state.filter.filterText.trim());
     }
 
     //update the url with query parameter
     updateQueryParameter = () => {
         let queryParams = [];
-        queryParams.push('filter=' + this.state.filter.filterSelected + ':' + encodeURIComponent(this.state.filter.filterText));
+        queryParams.push('filter=' + this.state.filter.filterSelected + ':' + encodeURIComponent(this.state.filter.filterText.trim()));
         queryParams.push('sort=' + this.state.sort.sortBy + ':' + this.state.sort.order);
         const queryString = queryParams.join('&');
         this.props.history.push({
@@ -171,8 +179,18 @@ class Layout extends Component {
             this.props.updateAppData(appData);
             return;
         }
-
         let filteredAppData = appData.filter(obj => obj[filterSelected].toLowerCase().includes(filterText.toLowerCase()));
+        //alerting the user if no records found
+        if (filteredAppData.length == 0) {
+            this.setState({
+                alert: {
+                    show: true,
+                    msg: `Sorry. No matching records found!.Please try filtering with different options`,
+                    type: 'Error'
+                }
+            });
+            return;
+        }
         this.props.updateAppData(filteredAppData);
     }
 
@@ -189,6 +207,7 @@ class Layout extends Component {
                     filterText: ''
                 },
                 sort: {
+                    ...prevState.sort,
                     sortBy: '',
                     order: ''
                 }
@@ -213,13 +232,20 @@ class Layout extends Component {
         let appData = [...this.props.appData];
         let sortBy;
         let sortedData;
-        //if sorted during the componentDidMount
+        //Sorting during the component's initial Mounting
         if (sortQuery) {
+            if (!(this.state.sort.applicableTo.includes(sortBy))) {
+                return;
+            }
+            console.log('sortQuery')
             sortBy = sortQuery[0];
-            this.setState({
-                sort: {
-                    sortBy: sortQuery[0],
-                    order: sortQuery[1]
+            this.setState(prevState => {
+                return {
+                    sort: {
+                        ...prevState.sort,
+                        sortBy: sortQuery[0],
+                        order: sortQuery[1]
+                    }
                 }
             })
             switch (sortBy) {
@@ -247,12 +273,16 @@ class Layout extends Component {
                     })
                     break;
                 default:
-                    break;
+                    return;
             }
         }
-        //if sorted manually by the user
+        //Sorting during the application runtime
         else {
             sortBy = e.target.id;
+            if (!(this.state.sort.applicableTo.includes(sortBy))) {
+                return;
+            }
+            //if already sorted reverse the order
             if (this.state.sort.sortBy == sortBy) {
                 sortedData = appData.reverse();
                 this.setState(prevState => {
@@ -266,10 +296,13 @@ class Layout extends Component {
                 }, () => this.updateQueryParameter())
             }
             else {
-                this.setState({
-                    sort: {
-                        sortBy: sortBy,
-                        order: 'AZ'
+                this.setState(prevState => {
+                    return {
+                        sort: {
+                            ...prevState.sort,
+                            sortBy: sortBy,
+                            order: 'AZ'
+                        }
                     }
                 }, () => this.updateQueryParameter())
                 switch (sortBy) {
@@ -287,11 +320,9 @@ class Layout extends Component {
                         })
                         break;
                     default:
-                        break;
+                        return;
                 }
             }
-            //update the url with sort details
-            // this.updateQueryParameter();
         }
 
         if (sortedData) {
@@ -321,7 +352,8 @@ class Layout extends Component {
                     <ApplicationTable
                         clicked={this.sortApplications}
                         sortBy={this.state.sort.sortBy}
-                        sortOrder={this.state.sort.order} />
+                        sortOrder={this.state.sort.order}
+                        applicableTo={this.state.sort.applicableTo} />
                 </>}
         </div>)
     }
@@ -338,7 +370,7 @@ const mapDispatchToProps = dispatch => {
         updateAppData: (payload) => dispatch({ type: 'updateAppData', payload: payload }),
         updateHeadings: (headings) => dispatch({ type: 'updateHeadings', headings: headings }),
         updateMasterData: (payload) => dispatch({ type: 'updateMasterData', payload: payload }),
-        // updateQuery: (query) =>dispatch({type: 'updateQuery', headings: query})
+        updatePaginatedData: (paginatedData) => dispatch({ type: 'updatePaginatedData', paginatedData: paginatedData })
     };
 }
 
