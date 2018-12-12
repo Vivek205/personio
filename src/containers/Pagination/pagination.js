@@ -15,7 +15,7 @@ const defaultProps = {
     initialPage: 1
 }
 
-class Pagination extends React.Component {
+class Pagination extends Component {
     state = { pager: {} }
 
     componentWillMount() {

@@ -61,7 +61,7 @@ class Layout extends Component {
                         });
                         //filtering the appData based on the query
                         if (filterSelected != '' && filterText != '') {
-                            this.filterApplications(filterSelected, filterText);
+                            this.filterApplications(filterSelected, filterText, true);
                         }
                     }
                     //if query contains sort details
@@ -160,7 +160,7 @@ class Layout extends Component {
         this.filterApplications(this.state.filter.filterSelected, this.state.filter.filterText.trim());
     }
 
-    //update the url with query parameter
+    //update the url with query parameter with the present state
     updateQueryParameter = () => {
         let queryParams = [];
         queryParams.push('filter=' + this.state.filter.filterSelected + ':' + encodeURIComponent(this.state.filter.filterText.trim()));
@@ -173,12 +173,8 @@ class Layout extends Component {
     }
 
     //carry out filtering operation
-    filterApplications = (filterSelected, filterText, clear = false) => {
+    filterApplications = (filterSelected, filterText, firstTime = false) => {
         let appData = [...this.props.masterData];
-        if (clear) {
-            this.props.updateAppData(appData);
-            return;
-        }
         let filteredAppData = appData.filter(obj => obj[filterSelected].toLowerCase().includes(filterText.toLowerCase()));
         //alerting the user if no records found
         if (filteredAppData.length == 0) {
@@ -191,6 +187,31 @@ class Layout extends Component {
             });
             return;
         }
+        // if filtered for component's initial mount: no need to clear the sort
+        if(firstTime){
+            this.props.updateAppData(filteredAppData);
+            return;
+        }
+        //clearing the sort - bcoz filtered data will be new
+        this.setState(prevState => {
+            return {
+                sort: {
+                    ...prevState.sort,
+                    sortBy: '',
+                    order: ''
+                }
+            }
+        })
+        //also clearing the sort details from the url
+        let queryParams = [];
+        queryParams.push('filter=' + this.state.filter.filterSelected + ':' + encodeURIComponent(this.state.filter.filterText.trim()));
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '',
+            search: '?' + queryString
+        });
+
+        // this.updateQueryParameter()
         this.props.updateAppData(filteredAppData);
     }
 
@@ -213,7 +234,10 @@ class Layout extends Component {
                 }
             }
         });
-        this.filterApplications('', '', true);
+
+        //resetting the app data
+        let appData = [...this.props.masterData];
+        this.props.updateAppData(appData);
 
     }
 
@@ -234,11 +258,10 @@ class Layout extends Component {
         let sortedData;
         //Sorting during the component's initial Mounting
         if (sortQuery) {
+            sortBy = sortQuery[0];
             if (!(this.state.sort.applicableTo.includes(sortBy))) {
                 return;
             }
-            console.log('sortQuery')
-            sortBy = sortQuery[0];
             this.setState(prevState => {
                 return {
                     sort: {
